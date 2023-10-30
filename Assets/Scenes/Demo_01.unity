@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3729182
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3551,7 +3551,6 @@ MonoBehaviour:
   nextWaveTimer: {fileID: 1546700507}
   sellUI: {fileID: 1439846400}
   constructUI: {fileID: 1460699067}
-  spawner: {fileID: 256667636}
   turretManager: {fileID: 326649890}
   turretScript: {fileID: 0}
   turret: {fileID: 0}
@@ -3627,7 +3626,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6190dc7bc66ac5348894697a52a5d126, type: 2}
   pathCreator: {fileID: 2043400205}
   startButton: {fileID: 2133533887}
-  manager: {fileID: 255572603}
   pathIndex: 0
   waveIndex: 0
   pathCreators:
@@ -13341,7 +13339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1094804688
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17321,7 +17319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1311430934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19222,7 +19220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1439846401
 RectTransform:
   m_ObjectHideFlags: 0

@@ -10,8 +10,7 @@ public class CannonShoot : MonoBehaviour
     [SerializeField] private GameObject ammo;
     [SerializeField] private float forceAmount;
     [SerializeField] private AudioSource shootSound;
-    public Vector3 direction;    
-    public TurretScript turretScript;
+    [SerializeField] private TurretScript turretScript;
     private float timer;
 
     private void Update()

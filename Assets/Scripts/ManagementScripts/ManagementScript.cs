@@ -25,7 +25,6 @@ public class ManagementScript : MonoBehaviour
     [SerializeField] private GameObject sellUI;
     [SerializeField] private GameObject constructUI;
     [Header("Scene Objects References")]
-    [SerializeField] private EnemySpawner spawner;
     [SerializeField] private TurretManager turretManager;
     [SerializeField] private TurretScript turretScript;
     [SerializeField] private Turret turret;
@@ -35,6 +34,18 @@ public class ManagementScript : MonoBehaviour
     public int hp;
 
     public bool paused = false;
+    public static ManagementScript instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     void Update()
     {
@@ -45,13 +56,7 @@ public class ManagementScript : MonoBehaviour
 
         Time.timeScale = paused ? 0 : 1;
 
-        skipUI.SetActive(spawner.inSetupTime);
-
-        warningUI.SetActive(spawner.inSetupTime);
-
-        sellUI.SetActive(turretManager.selected);
-
-        constructUI.SetActive(!turretManager.constructMode);
+        ManageUIItems();
 
         ManageTurretStatsText();
 
@@ -60,7 +65,6 @@ public class ManagementScript : MonoBehaviour
         UpdateUIText();
 
         ManageShop();
-
     }
     public void Pause()
     {
@@ -72,18 +76,21 @@ public class ManagementScript : MonoBehaviour
         turretScript = turretManager.selectedTurretScript;
         playerHPText.text = "Current HP: " + hp;
         moneyText.text = "Money: " + money;
-        enemiesLeftText.text = "Enemies Left: " + spawner.enemiesLeft;
-        if (spawner.timer < spawner.setupTime)
+        if(EnemySpawner.instance != null)
         {
-            nextWaveTimer.SetActive(true);
-            float seconds = Mathf.FloorToInt(spawner.timer % 60);
+            enemiesLeftText.text = "Enemies Left: " + EnemySpawner.instance.enemiesLeft;
+            if (EnemySpawner.instance.timer < EnemySpawner.instance.setupTime)
+            {
+                nextWaveTimer.SetActive(true);
+                float seconds = Mathf.FloorToInt(EnemySpawner.instance.timer % 60);
 
-            setupText.text = string.Format("Next Wave In" + ": {0:00}", seconds);
-        }
-        else
-        {
-            nextWaveTimer.SetActive(false);
-        }
+                setupText.text = string.Format("Next Wave In" + ": {0:00}", seconds);
+            }
+            else
+            {
+                nextWaveTimer.SetActive(false);
+            }
+        }    
     }
 
     void CheckActivateUpgradeOffer()
@@ -132,4 +139,16 @@ public class ManagementScript : MonoBehaviour
         }
     }
 
+    void ManageUIItems()
+    {
+        if(EnemySpawner.instance != null)
+        {
+            skipUI.SetActive(EnemySpawner.instance.inSetupTime);
+
+            warningUI.SetActive(EnemySpawner.instance.inSetupTime);       
+        }
+        sellUI.SetActive(turretManager.selected);
+
+        constructUI.SetActive(!turretManager.constructMode);
+    }
 }

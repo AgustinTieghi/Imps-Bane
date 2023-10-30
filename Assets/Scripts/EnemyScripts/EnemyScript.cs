@@ -19,10 +19,6 @@ public class EnemyScript : MonoBehaviour, IDamagable
     [SerializeField] private ParticleSystem particles;
     [SerializeField] private AudioSource deathSound;
 
-    [HideInInspector]
-    public ManagementScript manager;
-    [HideInInspector]
-    public EnemySpawner spawner;
     private enum Type
     {
         Normal,
@@ -66,20 +62,20 @@ public class EnemyScript : MonoBehaviour, IDamagable
         ParticlesOnDeath();
         switch (type)
         {
-            case EnemyScript.Type.Normal:
-                manager.money += 50;
+            case Type.Normal:
+                ManagementScript.instance.money += 50;
                 break;
-            case EnemyScript.Type.Tank:
-                manager.money += 100;
+            case Type.Tank:
+                ManagementScript.instance.money += 100;
                 break;
-            case EnemyScript.Type.Fast:
-                manager.money += 25;
+            case Type.Fast:
+                ManagementScript.instance.money += 25;
                 break;
             default:
-                manager.money += initialHP/2;
+                ManagementScript.instance.money += initialHP/2;
                 break;
         }       
-        spawner.enemiesLeft -= 1;
+        EnemySpawner.instance.enemiesLeft -= 1;
     }
 
     public void GetDamage(int dmg)

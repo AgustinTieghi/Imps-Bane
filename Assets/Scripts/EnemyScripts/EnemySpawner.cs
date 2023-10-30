@@ -11,11 +11,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<Wave> waves;  
     [SerializeField] private PathCreator pathCreator;
     [SerializeField] private GameObject startButton;
-    [SerializeField] private ManagementScript manager;
     [SerializeField] private int pathIndex; 
     [SerializeField] private int waveIndex;
     [SerializeField] private List<PathCreator> pathCreators;
-    private EnemyScript spawnedScript;
     private Wave currentWave;
     private bool firstWave = true;
 
@@ -23,7 +21,18 @@ public class EnemySpawner : MonoBehaviour
     public float setupTime;
     public int enemiesLeft; 
     public bool inSetupTime = false;
-
+    public static EnemySpawner instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         startButton.SetActive(false);
@@ -58,9 +67,6 @@ public class EnemySpawner : MonoBehaviour
 
             GameObject spawnedEnemy = Instantiate(currentWave.enemies[randomEnemy], this.transform.position, Quaternion.identity);
             spawnedEnemy.GetComponent<PathFollower>().pathCreator = pathCreators[pathIndex];
-            spawnedScript = spawnedEnemy.GetComponent<EnemyScript>();
-            spawnedScript.manager = this.manager;
-            spawnedScript.spawner = this;
             yield return new WaitForSeconds(1);
         }
         

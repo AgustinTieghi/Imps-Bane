@@ -26,7 +26,7 @@ public class TurretManager : MonoBehaviour
     public bool constructMode = false;
     public GameObject selectedTurret;
 
-    public ManagementScript manager;
+    [SerializeField] private ManagementScript manager;
 
 
     void Start()
